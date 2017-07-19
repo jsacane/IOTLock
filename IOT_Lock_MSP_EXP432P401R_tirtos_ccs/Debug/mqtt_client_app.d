@@ -1,8 +1,10 @@
 # FIXED
 
 mqtt_client_app.obj: ../mqtt_client_app.c
-mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h
+mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdio.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/linkage.h
+mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h
+mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h
@@ -255,8 +257,10 @@ mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/unistd.h
 
 ../mqtt_client_app.c: 
-C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h: 
+C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdio.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/linkage.h: 
+C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h: 
+C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h: 

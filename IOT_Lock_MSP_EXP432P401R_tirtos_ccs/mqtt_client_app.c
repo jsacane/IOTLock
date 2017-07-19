@@ -50,6 +50,7 @@
 //
 //*****************************************************************************
 /* Standard includes                                                          */
+#include <stdio.h>
 #include <stdlib.h>
 
 #include <ti/devices/msp432p4xx/inc/msp432.h>
@@ -100,7 +101,7 @@
 #define MQTT_INIT_STATE          (0x04)
 
 #define APPLICATION_VERSION      "1.1.1"
-#define APPLICATION_NAME         "MQTT client"
+#define APPLICATION_NAME         "IOTLock - MQTT client"
 
 /* Operate Lib in MQTT 3.1 mode.                                              */
 #define MQTT_3_1_1               false
@@ -125,18 +126,13 @@
 /* Retain Flag. Used in publish message.                                      */
 #define RETAIN_ENABLE            1
 
-/* Defining Number of subscription topics                                     */
-#define SUBSCRIPTION_TOPIC_COUNT 4
-
-/* Defining Subscription Topic Values                                         */
-#define SUBSCRIPTION_TOPIC0      "/Broker/To/cc32xx"
-#define SUBSCRIPTION_TOPIC1      "/cc3200/ToggleLEDCmdL1"
-#define SUBSCRIPTION_TOPIC2      "/cc3200/ToggleLEDCmdL2"
-#define SUBSCRIPTION_TOPIC3      "/cc3200/ToggleLEDCmdL3"
-
 /* Defining Publish Topic Values                                              */
-#define PUBLISH_TOPIC0           "/cc32xx/ButtonPressEvtSw2"
-#define PUBLISH_TOPIC0_DATA      "Push Button SW2 has been pressed on CC32XX device"
+#define PUBLISH_TOPIC_SENDCODE        "IOTLock/SendCode"
+#define PUBLISH_TOPIC_SUCCESS         "IOTLock/Success"
+#define PUBLISH_TOPIC_FAILURE         "IOTLock/Failure"
+
+#define PUBLISH_TOPIC_SUCCESS_DATA    "SUCCESS"
+#define PUBLISH_TOPIC_FAILURE_DATA    "FAILURE"
 
 /* Spawn task priority and Task and Thread Stack Size                         */
 #define TASKSTACKSIZE            2048
@@ -190,7 +186,7 @@ int32_t MQTT_SendMsgToQueue(struct msgQueue *queueElement);
 //*****************************************************************************
 
 /* Connection state: (0) - connected, (negative) - disconnected               */
-int32_t gApConnectionState = -1;
+int32_t  gApConnectionState = -1;
 uint32_t gInitState = 0;
 uint32_t memPtrCounterfree = 0;
 bool     gResetApplication = false;
@@ -210,21 +206,21 @@ SlWlanSecParams_t SecurityParams = { 0 };
 /* the ClientID parameter.                                                    */
 char ClientId[13] = {'\0'};
 
+/* Randomly generated 6-digit passcode + null terminator                      */
+char randomCode[7];
+
 /* Client User Name and Password                                              */
 const char *ClientUsername = "username1";
 const char *ClientPassword = "pwd1";
 
-/* Subscription topics and qos values                                         */
-char *topic[SUBSCRIPTION_TOPIC_COUNT] = 
-        { SUBSCRIPTION_TOPIC0, SUBSCRIPTION_TOPIC1, \
-          SUBSCRIPTION_TOPIC2, SUBSCRIPTION_TOPIC3 };
-
-unsigned char qos[SUBSCRIPTION_TOPIC_COUNT] =
-        { MQTT_QOS_2, MQTT_QOS_2, MQTT_QOS_2, MQTT_QOS_2 };
-
 /* Publishing topics and messages                                             */
-const char *publish_topic = { PUBLISH_TOPIC0 };
-const char *publish_data = { PUBLISH_TOPIC0_DATA };
+const char *publish_topic_sendcode = { PUBLISH_TOPIC_SENDCODE };
+const char *publish_topic_success  = { PUBLISH_TOPIC_SUCCESS  };
+const char *publish_topic_failure  = { PUBLISH_TOPIC_FAILURE  };
+
+const char *publish_data_sendcode = randomCode;
+const char *publish_data_success  = { PUBLISH_TOPIC_SUCCESS_DATA };
+const char *publish_data_failure  = { PUBLISH_TOPIC_FAILURE_DATA };
 
 /* Message Queue                                                              */
 mqd_t g_PBQueue;
@@ -306,9 +302,9 @@ MQTTClient_Will_t will_param =
 
 //*****************************************************************************
 //
-//! MQTT_SendMsgToQueue - Utility function that receive msgQueue parameter and 
-//! tries to push it the queue with minimal time for timeout of 0.
-//! If the queue isn't full the parameter will be stored and the function
+//! MQTT_SendMsgToQueue - Utility function that receives msgQueue parameter and
+//! tries to push it to the queue with minimal time for timeout of 0.
+//! If the queue isn't full, the parameter will be stored and the function
 //! will return 0.
 //! If the queue is full and the timeout expired (because the timeout parameter
 //! is 0 it will expire immediately), the parameter is thrown away and the
@@ -510,10 +506,10 @@ void *MqttClientThread(void * pvParameters)
 //!
 //! This function
 //!    1. Initializes network driver and connects to the default AP
-//!    2. Initializes the mqtt client ans server libraries and set up MQTT
+//!    2. Initializes the mqtt client and server libraries and sets up MQTT
 //!       with the remote broker.
-//!    3. set up the button events and their callbacks(for publishing)
-//!    4. handles the callback signals
+//!    3. Set up the button events and their callbacks (for publishing)
+//!    4. Handles the callback signals
 //!
 //! \param  none
 //!
@@ -525,7 +521,6 @@ void * MqttClient(void *pvParameters)
 
     struct msgQueue queueElemRecv;
     long lRetVal = -1;
-    char *tmpBuff;
 
     /* Initializing Client and Subscribing to the Broker.                     */
     if (gApConnectionState >= 0)
@@ -539,13 +534,15 @@ void * MqttClient(void *pvParameters)
         }
     }
 
-    /* handling the signals from various callbacks including the push button  */
-    /* prompting the client to publish a msg on PUB_TOPIC OR msg received by  */
-    /* the server on enrolled topic(for which the on-board client ha enrolled)*/
-    /* from a local client(will be published to the remote broker by the      */
-    /* client) OR msg received by the client from the remote broker (need to  */
-    /* be sent to the server to see if any local client has subscribed on the */
-    /* same topic).                                                           */
+    /* handling the signals from various callbacks including the push button     */
+    /* prompting the client to publish a msg on PUB_TOPIC OR msg received by     */
+    /* the server on enrolled topic (for which the on-board client has enrolled) */
+    /* from a local client (will be published to the remote broker by the        */
+    /* client) OR msg received by the client from the remote broker (need to     */
+    /* be sent to the server to see if any local client has subscribed on the    */
+    /* same topic).                                                              */
+
+    uint32_t newCode;
     for (;;)
     {
         /* waiting for signals                                                */
@@ -554,38 +551,21 @@ void * MqttClient(void *pvParameters)
         switch (queueElemRecv.event)
         {
             case PUBLISH_PUSH_BUTTON_PRESSED:
+                /* Generate new 6-digit random passcode to send to the user   */
+                newCode = rand() % 999999;
+                snprintf(randomCode, sizeof(randomCode), "%d", newCode);
 
-                /* send publish message                                       */
-                lRetVal = MQTTClient_publish(gMqttClient, (char*) publish_topic, strlen((char*)publish_topic), (char*)publish_data, strlen((char*) publish_data), MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
+                /* Publish the secret code to text it to the user             */
+                lRetVal = MQTTClient_publish(gMqttClient, (char*) publish_topic_sendcode, strlen((char*)publish_topic_sendcode), (char*)publish_data_sendcode, strlen((char*) publish_data_sendcode), MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
 
-                UART_PRINT("\n\r CC3200 Publishes the following message \n\r");
-                UART_PRINT("Topic: %s\n\r", publish_topic);
-                UART_PRINT("Data: %s\n\r", publish_data);
+                UART_PRINT("\n\r MSP432 Publishes the following message \n\r");
+                UART_PRINT("Topic: %s\n\r", publish_topic_sendcode);
+                UART_PRINT("Data: %s\n\r", publish_data_sendcode);
 
                 /* Clear and enable again the SW2 interrupt */
-                GPIO_clearInt(Board_BUTTON0); // SW2
+                GPIO_clearInt(Board_BUTTON0);  // SW2
                 GPIO_enableInt(Board_BUTTON0); // SW2
 
-                break;
-
-                /* msg received by client from remote broker (on a topic      */
-                /* subscribed by local client)                                */
-            case MSG_RECV_BY_CLIENT:
-                tmpBuff = (char *) ((char *) queueElemRecv.msgPtr + 12);
-                if (strncmp(tmpBuff, SUBSCRIPTION_TOPIC1, queueElemRecv.topLen) == 0)
-                {
-                    GPIO_toggle(Board_LED0);
-                }
-                else if (strncmp(tmpBuff, SUBSCRIPTION_TOPIC2, queueElemRecv.topLen) == 0)
-                {
-                    GPIO_toggle(Board_LED1);
-                }
-                else if (strncmp(tmpBuff, SUBSCRIPTION_TOPIC3, queueElemRecv.topLen) == 0)
-                {
-                    GPIO_toggle(Board_LED2);
-                }
-
-                free(queueElemRecv.msgPtr);
                 break;
 
                 /* On-board client disconnected from remote broker, only      */
@@ -614,7 +594,7 @@ void * MqttClient(void *pvParameters)
 
 //*****************************************************************************
 //
-//! This function connect the MQTT device to an AP with the SSID which was 
+//! This function connects the MQTT device to an AP with the SSID which was
 //! configured in SSID_NAME definition which can be found in Network_if.h file, 
 //! if the device can't connect to to this AP a request from the user for other 
 //! SSID will appear.
@@ -803,7 +783,7 @@ void Mqtt_Stop()
 int32_t MqttClient_start()
 {
     int32_t lRetVal = -1;
-    int32_t iCount = 0;
+    //int32_t iCount = 0;
 
     int32_t threadArg = 100;
     pthread_attr_t pAttrs;
@@ -880,7 +860,7 @@ int32_t MqttClient_start()
             gUiConnFlag = 1;
         }
         /* Subscribe to topics when session is not stored by the server       */
-        if ( (gUiConnFlag == 1) && (0 == lRetVal) )
+        /*if ( (gUiConnFlag == 1) && (0 == lRetVal) )
         {
             uint8_t subIndex;
             MQTTClient_SubscribeParams_t subscriptionInfo[SUBSCRIPTION_TOPIC_COUNT];
@@ -904,7 +884,7 @@ int32_t MqttClient_start()
                     UART_PRINT("Client subscribed on %s\n\r,", topic[iCount]);
                 }
             }
-        }
+        }*/
     }
 
     gInitState &= ~CLIENT_INIT_STATE;
@@ -925,9 +905,9 @@ int32_t MqttClient_start()
 
 void Mqtt_ClientStop(uint8_t disconnect)
 {
-    uint32_t iCount;
+    /*uint32_t iCount;
 
-    MQTTClient_UnsubscribeParams_t subscriptionInfo[SUBSCRIPTION_TOPIC_COUNT];
+    /MQTTClient_UnsubscribeParams_t subscriptionInfo[SUBSCRIPTION_TOPIC_COUNT];
 
     for( iCount = 0; iCount < SUBSCRIPTION_TOPIC_COUNT; iCount++ )
     {
@@ -939,7 +919,7 @@ void Mqtt_ClientStop(uint8_t disconnect)
     {
         UART_PRINT("Unsubscribed from the topic %s\r\n", topic[iCount]);
     }
-    gUiConnFlag = 0;
+    gUiConnFlag = 0;*/
 
     /* exiting the Client library                                             */
     MQTTClient_delete(gMqttClient);
@@ -1148,10 +1128,6 @@ void mainThread(void * args)
     {
 
         gResetApplication = false;
-        topic[0] = SUBSCRIPTION_TOPIC0;
-        topic[1] = SUBSCRIPTION_TOPIC1;
-        topic[2] = SUBSCRIPTION_TOPIC2;
-        topic[3] = SUBSCRIPTION_TOPIC3;
         gInitState = 0;
 
         /* Connect to AP                                                      */
@@ -1159,7 +1135,7 @@ void mainThread(void * args)
 
         gInitState |= MQTT_INIT_STATE;
         /* Run MQTT Main Thread (it will open the Client and Server)          */
-        Mqtt_start();               
+        Mqtt_start();
 
         /* Wait for init to be completed!!!                                   */
         while (gInitState != 0)

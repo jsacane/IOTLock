@@ -68,7 +68,7 @@ extern bool gResetApplication;
 
 /* Message Queue                                                              */
 extern mqd_t g_PBQueue;
-extern char *topic[];
+//extern char *topic[];
 struct client_info client_info_table[MAX_CONNECTION];
 
 //*****************************************************************************
@@ -138,7 +138,7 @@ void MqttClientCallback(int32_t event , void * metaData , uint32_t metaDateLen ,
                     APP_PRINT("Granted QoS Levels are:\n\r");
                     for (i = 0; i < dataLen; i++)
                     {
-                        APP_PRINT("%s :QoS %d\n\r", topic[i], ((unsigned char*) data)[i]);
+                        //APP_PRINT("%s :QoS %d\n\r", topic[i], ((unsigned char*) data)[i]);
                     }
                     break;
                 }
