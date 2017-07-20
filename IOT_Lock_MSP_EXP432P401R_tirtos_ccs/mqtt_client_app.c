@@ -180,6 +180,7 @@ int32_t Mqtt_IF_Connect();
 int32_t MqttServer_start();
 int32_t MqttClient_start();
 int32_t MQTT_SendMsgToQueue(struct msgQueue *queueElement);
+static uint32_t rand32();
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES
@@ -218,9 +219,9 @@ const char *publish_topic_sendcode = { PUBLISH_TOPIC_SENDCODE };
 const char *publish_topic_success  = { PUBLISH_TOPIC_SUCCESS  };
 const char *publish_topic_failure  = { PUBLISH_TOPIC_FAILURE  };
 
-const char *publish_data_sendcode = randomCode;
-const char *publish_data_success  = { PUBLISH_TOPIC_SUCCESS_DATA };
-const char *publish_data_failure  = { PUBLISH_TOPIC_FAILURE_DATA };
+const char *publish_topic_sendcode_data = randomCode;
+const char *publish_topic_success_data  = { PUBLISH_TOPIC_SUCCESS_DATA };
+const char *publish_topic_failure_data  = { PUBLISH_TOPIC_FAILURE_DATA };
 
 /* Message Queue                                                              */
 mqd_t g_PBQueue;
@@ -552,15 +553,17 @@ void * MqttClient(void *pvParameters)
         {
             case PUBLISH_PUSH_BUTTON_PRESSED:
                 /* Generate new 6-digit random passcode to send to the user   */
-                newCode = rand() % 999999;
+                newCode = rand32() % 999999;
                 snprintf(randomCode, sizeof(randomCode), "%d", newCode);
 
                 /* Publish the secret code to text it to the user             */
-                lRetVal = MQTTClient_publish(gMqttClient, (char*) publish_topic_sendcode, strlen((char*)publish_topic_sendcode), (char*)publish_data_sendcode, strlen((char*) publish_data_sendcode), MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
+                lRetVal = MQTTClient_publish(gMqttClient, (char*) publish_topic_sendcode, strlen((char*)publish_topic_sendcode),
+                                             (char*)publish_topic_sendcode_data, strlen((char*) publish_topic_sendcode_data),
+                                             MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
 
-                UART_PRINT("\n\r MSP432 Publishes the following message \n\r");
+                UART_PRINT("\n\rMSP432 Publishes the following message:\n\r");
                 UART_PRINT("Topic: %s\n\r", publish_topic_sendcode);
-                UART_PRINT("Data: %s\n\r", publish_data_sendcode);
+                UART_PRINT("Data: %s\n\r", publish_topic_sendcode_data);
 
                 /* Clear and enable again the SW2 interrupt */
                 GPIO_clearInt(Board_BUTTON0);  // SW2
@@ -1001,6 +1004,15 @@ void SetClientIdNamefromMacAddress(uint8_t *macAddress)
     }
 }
 
+static uint32_t rand32()
+{
+    uint32_t x = rand() & 0xff;
+    x |= (rand() & 0xff) << 8;
+    x |= (rand() & 0xff) << 16;
+    x |= (rand() & 0xff) << 24;
+    return x;
+}
+
 //*****************************************************************************
 //!
 //! Utility function which Display the app banner
@@ -1076,6 +1088,8 @@ void mainThread(void * args)
 
     Board_initGPIO();
     Board_initSPI();
+
+    srand(time(NULL));
 
     /* Configure the UART                                                     */
     tUartHndl = InitTerm();

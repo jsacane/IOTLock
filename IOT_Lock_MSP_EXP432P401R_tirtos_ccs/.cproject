@@ -23,8 +23,8 @@
 								<listOptionValue builtIn="false" value="CCS_MBS_VERSION=6.1.3"/>
 								<listOptionValue builtIn="false" value="RUNTIME_SUPPORT_LIBRARY=libc.a"/>
 								<listOptionValue builtIn="false" value="OUTPUT_TYPE=executable"/>
-								<listOptionValue builtIn="false" value="PRODUCTS=com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN:1.40.0.01_eng;"/>
-								<listOptionValue builtIn="false" value="PRODUCT_MACRO_IMPORTS={&quot;com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN&quot;:[&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INCLUDE_PATH}&quot;,&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_LIBRARY_PATH}&quot;,&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_LIBRARIES}&quot;,&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_SYMBOLS}&quot;]}"/>
+								<listOptionValue builtIn="false" value="PRODUCTS=com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN:1.40.0.01_eng;com.ti.rtsc.XDCtools:3.50.2.20_core;"/>
+								<listOptionValue builtIn="false" value="PRODUCT_MACRO_IMPORTS={&quot;com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN&quot;:[&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INCLUDE_PATH}&quot;,&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_LIBRARY_PATH}&quot;,&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_LIBRARIES}&quot;,&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_SYMBOLS}&quot;],&quot;com.ti.rtsc.XDCtools&quot;:[&quot;${XDC_INCLUDE_PATH}&quot;,&quot;${XDC_LIBRARY_PATH}&quot;,&quot;${XDC_LIBRARIES}&quot;,&quot;${XDC_SYMBOLS}&quot;]}"/>
 							</option>
 							<option id="com.ti.ccstudio.buildDefinitions.core.OPT_CODEGEN_VERSION.2146389543" name="Compiler version" superClass="com.ti.ccstudio.buildDefinitions.core.OPT_CODEGEN_VERSION" value="16.9.3.LTS" valueType="string"/>
 							<targetPlatform id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.exe.targetPlatformDebug.2062067921" name="Platform" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.exe.targetPlatformDebug"/>
@@ -40,6 +40,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DIAG_WRAP.1893137046" name="Wrap diagnostic messages (--diag_wrap)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DIAG_WRAP" useByScannerDiscovery="false" value="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DIAG_WRAP.off" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.INCLUDE_PATH.1707552849" name="Add dir to #include search path (--include_path, -I)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.INCLUDE_PATH" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${INHERITED_INCLUDE_PATH}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${XDC_INCLUDE_PATH}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INCLUDE_PATH}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${PROJECT_ROOT}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source&quot;"/>
@@ -50,6 +51,7 @@
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.LITTLE_ENDIAN.700379096" name="Little endian code [See 'General' page to edit] (--little_endian, -me)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.LITTLE_ENDIAN" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DEFINE.1183998011" name="Pre-define NAME (--define, -D)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.compilerID.DEFINE" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="${INHERITED_SYMBOLS}"/>
+									<listOptionValue builtIn="false" value="${XDC_SYMBOLS}"/>
 									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_SYMBOLS}"/>
 									<listOptionValue builtIn="false" value="__MSP432P401R__"/>
 									<listOptionValue builtIn="false" value="DeviceFamily_MSP432P401x"/>
@@ -71,20 +73,22 @@
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.DIAG_WRAP.1313841301" name="Wrap diagnostic messages (--diag_wrap)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.DIAG_WRAP" useByScannerDiscovery="false" value="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.DIAG_WRAP.off" valueType="enumerated"/>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.SEARCH_PATH.988988728" name="Add &lt;dir&gt; to library search path (--search_path, -i)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.SEARCH_PATH" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${INHERITED_LIBRARY_PATH}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${XDC_LIBRARY_PATH}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_LIBRARY_PATH}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CG_TOOL_ROOT}/lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${CG_TOOL_ROOT}/include&quot;"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.LIBRARY.200220244" name="Include library file or command file as input (--library, -l)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.LIBRARY" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" value="&quot;${INHERITED_LIBRARIES}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\ti\simplelink_msp432_sdk_wifi_plugin_1_40_00_01\source\ti\net\mqtt\ccs\client_TIRTOS\mqtt_client.a&quot;"/>
+									<listOptionValue builtIn="false" value="${INHERITED_LIBRARIES}"/>
+									<listOptionValue builtIn="false" value="${XDC_LIBRARIES}"/>
+									<listOptionValue builtIn="false" value="C:\ti\simplelink_msp432_sdk_wifi_plugin_1_40_00_01\source\ti\net\mqtt\ccs\client_TIRTOS\mqtt_client.a"/>
 									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_LIBRARIES}"/>
-									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/ti/display/lib/display.aem4f&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/ti/drivers/lib/drivers_msp432p401x.aem4f&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/third_party/fatfs/lib/fatfs.aem4f&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/drivers/net/wifi/ccs/rtos/simplelink.a&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/kernel/tirtos/packages/ti/dpl/lib/dpl_msp432p401x.aem4f&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib&quot;"/>
+									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/ti/display/lib/display.aem4f"/>
+									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/ti/drivers/lib/drivers_msp432p401x.aem4f"/>
+									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/third_party/fatfs/lib/fatfs.aem4f"/>
+									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_INSTALL_DIR}/source/ti/drivers/net/wifi/ccs/rtos/simplelink.a"/>
+									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/kernel/tirtos/packages/ti/dpl/lib/dpl_msp432p401x.aem4f"/>
+									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_INSTALL_DIR}/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib"/>
 									<listOptionValue builtIn="false" value="libc.a"/>
 								</option>
 								<inputType id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.exeLinker.inputType__CMD_SRCS.315794226" name="Linker Command Files" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.exeLinker.inputType__CMD_SRCS"/>

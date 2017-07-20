@@ -11,4 +11,5 @@
 	<templateProperties value="id=tirtos_builds_MSP_EXP432P401R_release_ccs.projectspec.tirtos_builds_MSP_EXP432P401R_release_ccs,products=com.ti.SIMPLELINK_MSP432_SDK,xdcToolsVersion=3_50_01_12_core,target=ti.targets.arm.elf.M4F,platform=ti.platforms.msp432:MSP432P401R,buildProfile=release,"/>
 	<origin value="C:/Users/a0232360/testing/tirtos_builds_MSP_EXP432P401R_release_ccs"/>
 	<filesToOpen value=""/>
+	<isTargetManual value="false"/>
 </projectOptions>
