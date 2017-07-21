@@ -59,11 +59,11 @@ extern "C"
 /* is executed.                                                               */
 
 /* AP SSID                                                                    */
-#define SSID_NAME               ""
+#define SSID_NAME               "JackSacaneiPhone"
 /* Security type (OPEN or WEP or WPA)                                         */
 #define SECURITY_TYPE           SL_WLAN_SEC_TYPE_WPA_WPA2
 /* Password of the secured AP                                                 */
-#define SECURITY_KEY            ""
+#define SECURITY_KEY            "bz0hxrn4a1qcr"
 #define SSID_LEN_MAX            32
 #define BSSID_LEN_MAX           6
 

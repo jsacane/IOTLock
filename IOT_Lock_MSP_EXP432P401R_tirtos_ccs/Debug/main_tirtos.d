@@ -2,7 +2,7 @@
 
 main_tirtos.obj: ../main_tirtos.c
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h
-main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/pthread.h
+main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/pthread.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/std.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h
@@ -127,7 +127,7 @@ main_tirtos.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runt
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task__epilogue.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h
-main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h
+main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Queue.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Semaphore.h
@@ -152,13 +152,13 @@ main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/t
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/IModule.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h
-main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/time.h
+main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/time.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/../include/time.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/linkage.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/abi_prefix.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
-main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/signal.h
-main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sched.h
+main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/signal.h
+main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sched.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
 main_tirtos.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/BIOS.h
 main_tirtos.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/Types.h
@@ -194,7 +194,7 @@ main_tirtos.obj: ../MSP_EXP432P401R.h
 
 ../main_tirtos.c: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/pthread.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/pthread.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
 C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/std.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h: 
@@ -319,7 +319,7 @@ C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/Types.h:
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task__epilogue.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Queue.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Semaphore.h: 
@@ -344,13 +344,13 @@ C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Clo
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
 C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/IModule.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/time.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/time.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/../include/time.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/linkage.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/abi_prefix.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/signal.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sched.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/signal.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sched.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/BIOS.h: 
 C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/Types.h: 

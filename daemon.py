@@ -5,8 +5,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 # Create a client to interact with the Twilio REST API
-account_sid = "your sid here"
-auth_token  = "your auth token here"
+account_sid = "AC4e84a781b6ba01e8a0e8e7ab728c9339"
+auth_token  = "c55ddd26fb0987332340619710480544"
 twilio_client = Client(account_sid, auth_token)
 
 # Create a client to interact with the Google Drive API

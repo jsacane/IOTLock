@@ -8,10 +8,10 @@ network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp_compatibility.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_ccs.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_ccs.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r_classic.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/core_cm4.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_compiler.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/core_cm4.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_compiler.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/driverlib.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/adc14.h
@@ -45,7 +45,7 @@ network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/wdt_a.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/sysctl.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/flash.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/pthread.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/pthread.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
 network_if.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/std.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h
@@ -170,7 +170,7 @@ network_if.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runti
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task__epilogue.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Queue.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Semaphore.h
@@ -195,14 +195,14 @@ network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
 network_if.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/IModule.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/time.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/time.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/../include/time.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/abi_prefix.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/signal.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sched.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/signal.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sched.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/drivers/net/wifi/simplelink.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/drivers/net/wifi/porting/user.h
@@ -245,7 +245,7 @@ network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/SPI.h
 network_if.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
 network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/Watchdog.h
 network_if.obj: ../MSP_EXP432P401R.h
-network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/unistd.h
+network_if.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/unistd.h
 
 ../network_if.c: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/string.h: 
@@ -255,10 +255,10 @@ C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432.h
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp_compatibility.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_ccs.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_ccs.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r_classic.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/core_cm4.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_compiler.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/core_cm4.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_compiler.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/driverlib.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/adc14.h: 
@@ -292,7 +292,7 @@ C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/ua
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/wdt_a.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/sysctl.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/flash.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/pthread.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/pthread.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
 C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/std.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h: 
@@ -417,7 +417,7 @@ C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/Types.h:
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/interfaces/ITaskSupport.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task__epilogue.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Queue.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Semaphore.h: 
@@ -442,14 +442,14 @@ C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Clo
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
 C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/runtime/IModule.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Event__epilogue.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/time.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/time.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/../include/time.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/abi_prefix.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/signal.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sched.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/signal.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sched.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
 C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/drivers/net/wifi/simplelink.h: 
 C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/drivers/net/wifi/porting/user.h: 
@@ -492,4 +492,4 @@ C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/SPI.h:
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/Watchdog.h: 
 ../MSP_EXP432P401R.h: 
-C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/unistd.h: 
+C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/unistd.h: 
