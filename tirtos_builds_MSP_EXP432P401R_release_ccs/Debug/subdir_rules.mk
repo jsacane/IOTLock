@@ -11,7 +11,7 @@ build-223847199:
 build-223847199-inproc: ../release.cfg
 	@echo 'Building file: $<'
 	@echo 'Invoking: XDCtools'
-	"C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/xs" --xdcpath="C:/ti/simplelink_msp432_sdk_1_40_01_00/source;C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages;C:/ti/ccs7.1.0.00016/ccsv7/ccs_base;" xdc.tools.configuro -o configPkg -t ti.targets.arm.elf.M4F -p ti.platforms.msp432:MSP432P401R -r release -c "C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS" "$<"
+	"C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/xs" --xdcpath="C:/ti/simplelink_msp432_sdk_1_40_00_27/source;C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages;C:/ti/ccs7.1.0.00016/ccsv7/ccs_base;" xdc.tools.configuro -o configPkg -t ti.targets.arm.elf.M4F -p ti.platforms.msp432:MSP432P401R -r release -c "C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
