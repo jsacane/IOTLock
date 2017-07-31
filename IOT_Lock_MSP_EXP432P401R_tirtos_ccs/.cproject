@@ -80,6 +80,7 @@
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.LIBRARY.200220244" name="Include library file or command file as input (--library, -l)" superClass="com.ti.ccstudio.buildDefinitions.MSP432_16.9.linkerID.LIBRARY" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="${INHERITED_LIBRARIES}"/>
+									<listOptionValue builtIn="false" value="&quot;C:\ti\simplelink_msp432_sdk_1_40_01_00\source\ti\grlib\ccs\grlib.lib&quot;"/>
 									<listOptionValue builtIn="false" value="${XDC_LIBRARIES}"/>
 									<listOptionValue builtIn="false" value="C:\ti\simplelink_msp432_sdk_wifi_plugin_1_40_00_01\source\ti\net\mqtt\ccs\client_TIRTOS\mqtt_client.a"/>
 									<listOptionValue builtIn="false" value="${COM_TI_SIMPLELINK_MSP432_SDK_WIFI_PLUGIN_LIBRARIES}"/>

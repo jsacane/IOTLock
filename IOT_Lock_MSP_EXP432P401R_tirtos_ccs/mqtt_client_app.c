@@ -52,7 +52,9 @@
 /* Standard includes                                                          */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
+/* MSP432 includes                                                            */
 #include <ti/devices/msp432p4xx/inc/msp432.h>
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
@@ -70,11 +72,21 @@
 #include <ti/drivers/GPIO.h>
 #include <ti/drivers/SPI.h>
 
-/* Simplelink includes                                                        */
+/* SimpleLink includes                                                        */
 #include <ti/drivers/net/wifi/simplelink.h>
 
 /* MQTT Library includes                                                      */
 #include <ti/net/mqtt/mqtt_client.h>
+
+/* GrLib Includes */
+#include <ti/grlib/grlib.h>
+#include <ti/grlib/button.h>
+#include <ti/grlib/imageButton.h>
+#include <ti/grlib/radioButton.h>
+#include <ti/grlib/checkbox.h>
+#include "LcdDriver/kitronix320x240x16_ssd2119_spi.h"
+#include "images/images.h"
+#include "touch_P401R.h"
 
 /* Common interface includes                                                  */
 #include "network_if.h"
@@ -162,6 +174,9 @@
 /* Expiration value for the timer that is being used to toggle the Led.       */
 #define TIMER_EXPIRATION_VALUE   100 * 1000000
 
+/* Number of digits in the secret passcode                                    */
+#define PASSCODE_LEN             6
+
 //*****************************************************************************
 //                      LOCAL FUNCTION PROTOTYPES
 //*****************************************************************************
@@ -171,6 +186,7 @@ void TimerPeriodicIntHandler(sigval val);
 void LedTimerConfigNStart();
 void LedTimerDeinitStop();
 static void DisplayBanner(char * AppName);
+
 void *MqttClient(void *pvParameters);
 void Mqtt_ClientStop(uint8_t disconnect);
 void Mqtt_ServerStop();
@@ -180,7 +196,13 @@ int32_t Mqtt_IF_Connect();
 int32_t MqttServer_start();
 int32_t MqttClient_start();
 int32_t MQTT_SendMsgToQueue(struct msgQueue *queueElement);
-static uint32_t rand32();
+
+void Delay(uint16_t msec);
+void boardInit(void);
+void clockInit(void);
+void initializeKeypadButtons(void);
+void drawLock(void);
+void drawKeypad(void);
 
 //*****************************************************************************
 //                 GLOBAL VARIABLES
@@ -207,8 +229,17 @@ SlWlanSecParams_t SecurityParams = { 0 };
 /* the ClientID parameter.                                                    */
 char ClientId[13] = {'\0'};
 
-/* Randomly generated 6-digit passcode + null terminator                      */
-char randomCode[7];
+/* Randomly generated 6-digit passcode                                        */
+char randomCode[PASSCODE_LEN] = {0};
+
+/* ASCII string of 6-digit passcode + null terminator                         */
+char randomCodeStr[PASSCODE_LEN + 1] = {'\0'};
+
+/* Passcode being entered by the user                                         */
+char enteredCode[PASSCODE_LEN] = {0};
+
+/* Keep track if the device is locked or unlocked                             */
+bool locked;
 
 /* Client User Name and Password                                              */
 const char *ClientUsername = "username1";
@@ -219,7 +250,7 @@ const char *publish_topic_sendcode = { PUBLISH_TOPIC_SENDCODE };
 const char *publish_topic_success  = { PUBLISH_TOPIC_SUCCESS  };
 const char *publish_topic_failure  = { PUBLISH_TOPIC_FAILURE  };
 
-const char *publish_topic_sendcode_data = randomCode;
+const char *publish_topic_sendcode_data = randomCodeStr;
 const char *publish_topic_success_data  = { PUBLISH_TOPIC_SUCCESS_DATA };
 const char *publish_topic_failure_data  = { PUBLISH_TOPIC_FAILURE_DATA };
 
@@ -229,9 +260,28 @@ pthread_t mqttThread = (pthread_t) NULL;
 pthread_t appThread = (pthread_t) NULL;
 timer_t g_timer;
 
-
 /* Printing new line                                                          */
 char lineBreak[] = "\n\r";
+
+/* Touch screen context                                                       */
+touch_context g_sTouchContext;
+
+/* Images and buttons                                                         */
+Graphics_ImageButton oneButton;
+Graphics_ImageButton twoButton;
+Graphics_ImageButton threeButton;
+Graphics_ImageButton fourButton;
+Graphics_ImageButton fiveButton;
+Graphics_ImageButton sixButton;
+Graphics_ImageButton sevenButton;
+Graphics_ImageButton eightButton;
+Graphics_ImageButton nineButton;
+
+/* Graphics library context                                                   */
+Graphics_Context g_sContext;
+
+/* Flag to know if a demo was run                                             */
+bool g_ranDemo = false;
 
 //*****************************************************************************
 //                 Banner VARIABLES
@@ -543,7 +593,9 @@ void * MqttClient(void *pvParameters)
     /* be sent to the server to see if any local client has subscribed on the    */
     /* same topic).                                                              */
 
-    uint32_t newCode;
+    uint8_t digit;
+    uint8_t randNum;
+    uint8_t keysPressed;
     for (;;)
     {
         /* waiting for signals                                                */
@@ -553,21 +605,129 @@ void * MqttClient(void *pvParameters)
         {
             case PUBLISH_PUSH_BUTTON_PRESSED:
                 /* Generate new 6-digit random passcode to send to the user   */
-                newCode = rand32() % 999999;
-                snprintf(randomCode, sizeof(randomCode), "%d", newCode);
+                for (digit=0; digit<PASSCODE_LEN; digit++) {
+                    randNum = rand() % 10;
+                    // make sure the code has no sevens in it since the
+                    // seven key is broken...
+                    while (randNum == 7 || randNum == 0) {
+                        randNum = rand() % 10;
+                    }
+                    randomCode[digit] = randNum;
+                    randomCodeStr[digit] = '0' + randNum;
+                }
 
-                /* Publish the secret code to text it to the user             */
+                /* Publish the secret code to MQTT to text it to the user's phone */
                 lRetVal = MQTTClient_publish(gMqttClient, (char*) publish_topic_sendcode, strlen((char*)publish_topic_sendcode),
                                              (char*)publish_topic_sendcode_data, strlen((char*) publish_topic_sendcode_data),
                                              MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
 
                 UART_PRINT("\n\rMSP432 Publishes the following message:\n\r");
                 UART_PRINT("Topic: %s\n\r", publish_topic_sendcode);
-                UART_PRINT("Data: %s\n\r", publish_topic_sendcode_data);
+                UART_PRINT("Data: %s\n\n\r", publish_topic_sendcode_data);
 
                 /* Clear and enable again the SW2 interrupt */
                 GPIO_clearInt(Board_BUTTON0);  // SW2
                 GPIO_enableInt(Board_BUTTON0); // SW2
+
+                keysPressed = 0;
+                drawKeypad();
+                //Delay(10);
+                while (keysPressed < PASSCODE_LEN) {
+                    touch_updateCurrentTouch(&g_sTouchContext);
+
+                    if(g_sTouchContext.touch)
+                    {
+                        if(Graphics_isImageButtonSelected(&oneButton,
+                                                          g_sTouchContext.x,
+                                                          g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext, &oneButton);
+                            enteredCode[keysPressed] = 1;
+                        }
+                        else if(Graphics_isImageButtonSelected(&twoButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext,&twoButton);
+                            enteredCode[keysPressed] = 2;
+                        }
+                        else if(Graphics_isImageButtonSelected(&threeButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext,&threeButton);
+                            enteredCode[keysPressed] = 3;
+                        }
+                        else if(Graphics_isImageButtonSelected(&fourButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext,&fourButton);
+                            enteredCode[keysPressed] = 4;
+                        }
+                        else if(Graphics_isImageButtonSelected(&fiveButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext,&fiveButton);
+                            enteredCode[keysPressed] = 5;
+                        }
+                        else if(Graphics_isImageButtonSelected(&sixButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext,&sixButton);
+                            enteredCode[keysPressed] = 6;
+                        }
+                        else if(Graphics_isImageButtonSelected(&sevenButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            // Button seven is broken for some reason...
+                            //Graphics_drawSelectedImageButton(&g_sContext,&sevenButton);
+                            keysPressed--;
+                        }
+                        else if(Graphics_isImageButtonSelected(&eightButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext,&eightButton);
+                            enteredCode[keysPressed] = 8;
+                        }
+                        else if(Graphics_isImageButtonSelected(&nineButton,
+                                                               g_sTouchContext.x,
+                                                               g_sTouchContext.y))
+                        {
+                            Graphics_drawSelectedImageButton(&g_sContext,&nineButton);
+                            enteredCode[keysPressed] = 9;
+                        }
+
+                        keysPressed++;
+                    }
+                }
+
+                if (memcmp(enteredCode, randomCode, 6) == 0) {
+                    lRetVal = MQTTClient_publish(gMqttClient, (char*) publish_topic_success, strlen((char*)publish_topic_success),
+                                                 (char*)publish_topic_success_data, strlen((char*) publish_topic_success_data),
+                                                 MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
+
+                    UART_PRINT("\n\rMSP432 Publishes the following message:\n\r");
+                    UART_PRINT("Topic: %s\n\r", publish_topic_success);
+                    UART_PRINT("Data: %s\n\n\r", publish_topic_success_data);
+                    //locked = false;
+                    //drawLock();
+                }
+                else {
+                    lRetVal = MQTTClient_publish(gMqttClient, (char*) publish_topic_failure, strlen((char*)publish_topic_failure),
+                                                 (char*)publish_topic_failure_data, strlen((char*) publish_topic_failure_data),
+                                                 MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
+
+                    UART_PRINT("\n\rMSP432 Publishes the following message:\n\r");
+                    UART_PRINT("Topic: %s\n\r", publish_topic_failure);
+                    UART_PRINT("Data: %s\n\n\r", publish_topic_failure_data);
+                    //locked = true;
+                    //drawLock();
+                }
 
                 break;
 
@@ -786,7 +946,6 @@ void Mqtt_Stop()
 int32_t MqttClient_start()
 {
     int32_t lRetVal = -1;
-    //int32_t iCount = 0;
 
     int32_t threadArg = 100;
     pthread_attr_t pAttrs;
@@ -862,32 +1021,6 @@ int32_t MqttClient_start()
         {
             gUiConnFlag = 1;
         }
-        /* Subscribe to topics when session is not stored by the server       */
-        /*if ( (gUiConnFlag == 1) && (0 == lRetVal) )
-        {
-            uint8_t subIndex;
-            MQTTClient_SubscribeParams_t subscriptionInfo[SUBSCRIPTION_TOPIC_COUNT];
-
-            for( subIndex = 0; subIndex < SUBSCRIPTION_TOPIC_COUNT; subIndex++ )
-            {
-                subscriptionInfo[subIndex].topic = topic[subIndex];
-                subscriptionInfo[subIndex].qos = qos[subIndex];
-            }
-
-            if (MQTTClient_subscribe(gMqttClient , subscriptionInfo, SUBSCRIPTION_TOPIC_COUNT) < 0)
-            {
-                UART_PRINT("\n\r Subscription Error \n\r");
-                MQTTClient_disconnect(gMqttClient);
-                gUiConnFlag = 0;
-            }
-            else
-            {
-                for (iCount = 0; iCount < SUBSCRIPTION_TOPIC_COUNT; iCount++)
-                {
-                    UART_PRINT("Client subscribed on %s\n\r,", topic[iCount]);
-                }
-            }
-        }*/
     }
 
     gInitState &= ~CLIENT_INIT_STATE;
@@ -908,22 +1041,6 @@ int32_t MqttClient_start()
 
 void Mqtt_ClientStop(uint8_t disconnect)
 {
-    /*uint32_t iCount;
-
-    /MQTTClient_UnsubscribeParams_t subscriptionInfo[SUBSCRIPTION_TOPIC_COUNT];
-
-    for( iCount = 0; iCount < SUBSCRIPTION_TOPIC_COUNT; iCount++ )
-    {
-        subscriptionInfo[iCount].topic = topic[iCount];
-    }
-
-    MQTTClient_unsubscribe(gMqttClient , subscriptionInfo, SUBSCRIPTION_TOPIC_COUNT);
-    for (iCount = 0; iCount < SUBSCRIPTION_TOPIC_COUNT; iCount++)
-    {
-        UART_PRINT("Unsubscribed from the topic %s\r\n", topic[iCount]);
-    }
-    gUiConnFlag = 0;*/
-
     /* exiting the Client library                                             */
     MQTTClient_delete(gMqttClient);
 
@@ -1004,15 +1121,6 @@ void SetClientIdNamefromMacAddress(uint8_t *macAddress)
     }
 }
 
-static uint32_t rand32()
-{
-    uint32_t x = rand() & 0xff;
-    x |= (rand() & 0xff) << 8;
-    x |= (rand() & 0xff) << 16;
-    x |= (rand() & 0xff) << 24;
-    return x;
-}
-
 //*****************************************************************************
 //!
 //! Utility function which Display the app banner
@@ -1078,7 +1186,6 @@ int32_t DisplayAppBanner(char* appName, char* appVersion)
 
 void mainThread(void * args)
 {
-
     uint32_t count = 0;
     pthread_t spawn_thread = (pthread_t) NULL;
     pthread_attr_t pAttrs_spawn;
@@ -1089,6 +1196,28 @@ void mainThread(void * args)
     Board_initGPIO();
     Board_initSPI();
 
+    /* Initialize the demo. */
+    boardInit();
+    //clockInit();
+    initializeKeypadButtons();
+
+    /* Globally enable interrupts. */
+    __enable_interrupt();
+
+    // LCD setup using Graphics Library API calls
+    Kitronix320x240x16_SSD2119Init();
+    Graphics_initContext(&g_sContext, &g_sKitronix320x240x16_SSD2119,
+                         &g_sKitronix320x240x16_SSD2119_funcs);
+    Graphics_setBackgroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
+    Graphics_setFont(&g_sContext, &g_sFontCmss20b);
+    Graphics_clearDisplay(&g_sContext);
+
+    /* Calibrate the LCD and draw the keypad                                 */
+    touch_initInterface();
+    //locked = true;
+    drawKeypad();
+
+    /* Seed the RNG                                                           */
     srand(time(NULL));
 
     /* Configure the UART                                                     */
@@ -1140,7 +1269,6 @@ void mainThread(void * args)
 
     while (1)
     {
-
         gResetApplication = false;
         gInitState = 0;
 
@@ -1168,6 +1296,186 @@ void mainThread(void * args)
 
         UART_PRINT("reopen MQTT # %d  \r\n", ++count);
 
+    }
+}
+
+void initializeKeypadButtons(void)
+{
+    oneButton.xPosition = 0;
+    oneButton.yPosition = 0;
+    oneButton.borderWidth = 1;
+    oneButton.selected = false;
+    oneButton.imageWidth = one8BPP_UNCOMP.xSize;
+    oneButton.imageHeight = one8BPP_UNCOMP.ySize;
+    oneButton.borderColor = GRAPHICS_COLOR_WHITE;
+    oneButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    oneButton.image = &one8BPP_UNCOMP;
+
+    twoButton.xPosition = 106;
+    twoButton.yPosition = 0;
+    twoButton.borderWidth = 1;
+    twoButton.selected = false;
+    twoButton.imageWidth = two8BPP_UNCOMP.xSize;
+    twoButton.imageHeight = two8BPP_UNCOMP.ySize;
+    twoButton.borderColor = GRAPHICS_COLOR_WHITE;
+    twoButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    twoButton.image = &two8BPP_UNCOMP;
+
+    threeButton.xPosition = 212;
+    threeButton.yPosition = 0;
+    threeButton.borderWidth = 1;
+    threeButton.selected = false;
+    threeButton.imageWidth = three8BPP_UNCOMP.xSize;
+    threeButton.imageHeight = three8BPP_UNCOMP.ySize;
+    threeButton.borderColor = GRAPHICS_COLOR_WHITE;
+    threeButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    threeButton.image = &three8BPP_UNCOMP;
+
+    fourButton.xPosition = 0;
+    fourButton.yPosition = 61;
+    fourButton.borderWidth = 1;
+    fourButton.selected = false;
+    fourButton.imageWidth = four8BPP_UNCOMP.xSize;
+    fourButton.imageHeight = four8BPP_UNCOMP.ySize;
+    fourButton.borderColor = GRAPHICS_COLOR_WHITE;
+    fourButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    fourButton.image = &four8BPP_UNCOMP;
+
+    fiveButton.xPosition = 106;
+    fiveButton.yPosition = 61;
+    fiveButton.borderWidth = 1;
+    fiveButton.selected = false;
+    fiveButton.imageWidth = five8BPP_UNCOMP.xSize;
+    fiveButton.imageHeight = five8BPP_UNCOMP.ySize;
+    fiveButton.borderColor = GRAPHICS_COLOR_WHITE;
+    fiveButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    fiveButton.image = &five8BPP_UNCOMP;
+
+    sixButton.xPosition = 212;
+    sixButton.yPosition = 61;
+    sixButton.borderWidth = 1;
+    sixButton.selected = false;
+    sixButton.imageWidth = six8BPP_UNCOMP.xSize;
+    sixButton.imageHeight = six8BPP_UNCOMP.ySize;
+    sixButton.borderColor = GRAPHICS_COLOR_WHITE;
+    sixButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    sixButton.image = &six8BPP_UNCOMP;
+
+    sevenButton.xPosition = 0;
+    sevenButton.yPosition = 122;
+    sevenButton.borderWidth = 1;
+    sevenButton.selected = false;
+    sevenButton.imageWidth = seven8BPP_UNCOMP.xSize;
+    sevenButton.imageHeight = seven8BPP_UNCOMP.ySize;
+    sevenButton.borderColor = GRAPHICS_COLOR_WHITE;
+    sevenButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    sevenButton.image = &seven8BPP_UNCOMP;
+
+    eightButton.xPosition = 106;
+    eightButton.yPosition = 122;
+    eightButton.borderWidth = 1;
+    eightButton.selected = false;
+    eightButton.imageWidth = eight8BPP_UNCOMP.xSize;
+    eightButton.imageHeight = eight8BPP_UNCOMP.ySize;
+    eightButton.borderColor = GRAPHICS_COLOR_WHITE;
+    eightButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    eightButton.image = &eight8BPP_UNCOMP;
+
+    nineButton.xPosition = 212;
+    nineButton.yPosition = 122;
+    nineButton.borderWidth = 1;
+    nineButton.selected = false;
+    nineButton.imageWidth = nine8BPP_UNCOMP.xSize;
+    nineButton.imageHeight = nine8BPP_UNCOMP.ySize;
+    nineButton.borderColor = GRAPHICS_COLOR_WHITE;
+    nineButton.selectedColor = GRAPHICS_COLOR_ROYAL_BLUE;
+    nineButton.image = &nine8BPP_UNCOMP;
+}
+
+void drawLock(void)
+{
+    Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
+    Graphics_setBackgroundColor(&g_sContext, GRAPHICS_COLOR_WHITE);
+    Graphics_clearDisplay(&g_sContext);
+
+    /* Draw text in center of screen */
+    Graphics_drawStringCentered(&g_sContext, "IOTLock",
+                                AUTO_STRING_LENGTH,
+                                159,
+                                15,
+                                TRANSPARENT_TEXT);
+
+    /* Draw TI banner at the bottom of screen */
+    Graphics_drawImage(&g_sContext,
+                       &TI_platform_bar_red4BPP_UNCOMP,
+                       0,
+                       Graphics_getDisplayHeight(&g_sContext) -
+                       TI_platform_bar_red4BPP_UNCOMP.ySize);
+
+    if (locked)
+    {
+        /* Draw Lock */
+        Graphics_drawImage(&g_sContext, &locked8BPP_UNCOMP, 80, 32);
+    }
+    else
+    {
+        /* Draw Unlock */
+        Graphics_drawImage(&g_sContext, &unlocked8BPP_UNCOMP, 80, 32);
+    }
+}
+
+void drawKeypad(void)
+{
+    Graphics_setForegroundColor(&g_sContext, GRAPHICS_COLOR_RED);
+    Graphics_setBackgroundColor(&g_sContext, GRAPHICS_COLOR_BLACK);
+    Graphics_clearDisplay(&g_sContext);
+
+    // Draw TI banner at the bottom of screen
+    Graphics_drawImage(&g_sContext,
+                       &TI_platform_bar_red4BPP_UNCOMP,
+                       0,
+                       Graphics_getDisplayHeight(
+                           &g_sContext) - TI_platform_bar_red4BPP_UNCOMP.ySize);
+
+    // Draw keypad buttons
+    Graphics_drawImageButton(&g_sContext, &oneButton);
+    Graphics_drawImageButton(&g_sContext, &twoButton);
+    Graphics_drawImageButton(&g_sContext, &threeButton);
+    Graphics_drawImageButton(&g_sContext, &fourButton);
+    Graphics_drawImageButton(&g_sContext, &fiveButton);
+    Graphics_drawImageButton(&g_sContext, &sixButton);
+    Graphics_drawImageButton(&g_sContext, &sevenButton);
+    Graphics_drawImageButton(&g_sContext, &eightButton);
+    Graphics_drawImageButton(&g_sContext, &nineButton);
+}
+
+void boardInit()
+{
+    FPU_enableModule();
+}
+
+void clockInit(void)
+{
+    /* 2 flash wait states, VCORE = 1, running off DC-DC, 48 MHz */
+    FlashCtl_setWaitState(FLASH_BANK0, 2);
+    FlashCtl_setWaitState(FLASH_BANK1, 2);
+    PCM_setPowerState(PCM_AM_DCDC_VCORE1);
+    CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
+    CS_setDCOFrequency(48000000);
+    CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, 1);
+    CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, 1);
+    CS_initClockSignal(CS_HSMCLK, CS_DCOCLK_SELECT, 1);
+
+    return;
+}
+
+void Delay(uint16_t msec){
+    uint32_t i = 0;
+    uint32_t time = (msec / 1000) * (SYSTEM_CLOCK_SPEED / 15);
+
+    for(i = 0; i < time; i++)
+    {
+        ;
     }
 }
 

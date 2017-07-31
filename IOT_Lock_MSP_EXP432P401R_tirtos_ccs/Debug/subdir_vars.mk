@@ -14,6 +14,7 @@ C_SRCS += \
 ../main_tirtos.c \
 ../mqtt_client_app.c \
 ../network_if.c \
+../touch_P401R.c \
 ../uart_term.c 
 
 C_DEPS += \
@@ -22,6 +23,7 @@ C_DEPS += \
 ./main_tirtos.d \
 ./mqtt_client_app.d \
 ./network_if.d \
+./touch_P401R.d \
 ./uart_term.d 
 
 OBJS += \
@@ -30,6 +32,7 @@ OBJS += \
 ./main_tirtos.obj \
 ./mqtt_client_app.obj \
 ./network_if.obj \
+./touch_P401R.obj \
 ./uart_term.obj 
 
 OBJS__QUOTED += \
@@ -38,6 +41,7 @@ OBJS__QUOTED += \
 "main_tirtos.obj" \
 "mqtt_client_app.obj" \
 "network_if.obj" \
+"touch_P401R.obj" \
 "uart_term.obj" 
 
 C_DEPS__QUOTED += \
@@ -46,6 +50,7 @@ C_DEPS__QUOTED += \
 "main_tirtos.d" \
 "mqtt_client_app.d" \
 "network_if.d" \
+"touch_P401R.d" \
 "uart_term.d" 
 
 C_SRCS__QUOTED += \
@@ -54,6 +59,7 @@ C_SRCS__QUOTED += \
 "../main_tirtos.c" \
 "../mqtt_client_app.c" \
 "../network_if.c" \
+"../touch_P401R.c" \
 "../uart_term.c" 
 
 

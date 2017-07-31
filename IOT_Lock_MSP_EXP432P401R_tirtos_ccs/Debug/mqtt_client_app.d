@@ -5,14 +5,14 @@ mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/linkage.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h
+mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h
-mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp_compatibility.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_ccs.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_ccs.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r_classic.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/core_cm4.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_compiler.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/core_cm4.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_compiler.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/driverlib.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/adc14.h
@@ -59,12 +59,12 @@ mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/dp
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/dpl/ClockP.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/time.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/time.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/../include/time.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/abi_prefix.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/signal.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/signal.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Queue.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/std.h
@@ -229,6 +229,17 @@ mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/net/mqtt/common/mqtt_common.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/string.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/grlib.h
+mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/assert.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/button.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/imageButton.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/radioButton.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/checkbox.h
+mqtt_client_app.obj: ../LcdDriver/kitronix320x240x16_ssd2119_spi.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/grlib.h
+mqtt_client_app.obj: ../images/images.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/grlib.h
+mqtt_client_app.obj: ../touch_P401R.h
 mqtt_client_app.obj: ../network_if.h
 mqtt_client_app.obj: ../uart_term.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/UART.h
@@ -247,28 +258,28 @@ mqtt_client_app.obj: ../MSP_EXP432P401R.h
 mqtt_client_app.obj: ../client_cbs.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/net/mqtt/mqtt_server.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/string.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/pthread.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/pthread.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sched.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sched.h
 mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h
 mqtt_client_app.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h
-mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/unistd.h
+mqtt_client_app.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/unistd.h
 
 ../mqtt_client_app.c: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdio.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/linkage.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdarg.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h: 
+C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h: 
-C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp_compatibility.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_ccs.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_ccs.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r_classic.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/core_cm4.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_compiler.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/core_cm4.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_compiler.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/driverlib.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/adc14.h: 
@@ -315,12 +326,12 @@ C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/dpl/MutexP.h:
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/dpl/ClockP.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/time.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/time.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/../include/time.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/abi_prefix.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/signal.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/signal.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sys/types.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Queue.h: 
 C:/ti/ccs7.1.0.00016/xdctools_3_50_01_12_core/packages/xdc/std.h: 
@@ -485,6 +496,17 @@ C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/string.h
 C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/net/mqtt/common/mqtt_common.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdlib.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/string.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/grlib.h: 
+C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/assert.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/button.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/imageButton.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/radioButton.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/checkbox.h: 
+../LcdDriver/kitronix320x240x16_ssd2119_spi.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/grlib.h: 
+../images/images.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/grlib/grlib.h: 
+../touch_P401R.h: 
 ../network_if.h: 
 ../uart_term.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/UART.h: 
@@ -503,11 +525,11 @@ C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/drivers/Watchdog.h:
 ../client_cbs.h: 
 C:/ti/simplelink_msp432_sdk_wifi_plugin_1_40_00_01/source/ti/net/mqtt/mqtt_server.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/string.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/pthread.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/pthread.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/package/Task_SupportProxy.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/sched.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/sched.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/knl/Task.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/mqueue.h: 
 C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stddef.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/kernel/tirtos/packages/ti/sysbios/posix/unistd.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/kernel/tirtos/packages/ti/sysbios/posix/unistd.h: 
