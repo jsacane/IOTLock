@@ -6,10 +6,10 @@ touch_P401R.obj: C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS
 touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432.h
 touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h
 touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp_compatibility.h
-touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_ccs.h
+touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_ccs.h
 touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r_classic.h
-touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/core_cm4.h
-touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_compiler.h
+touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/core_cm4.h
+touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_compiler.h
 touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h
 touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/driverlib.h
 touch_P401R.obj: C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/adc14.h
@@ -55,10 +55,10 @@ C:/ti/ccs7.1.0.00016/ccsv7/tools/compiler/ti-cgt-arm_16.9.3.LTS/include/stdint.h
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp_compatibility.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_ccs.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_ccs.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/msp432p401r_classic.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/core_cm4.h: 
-C:/ti/simplelink_msp432_sdk_1_40_01_00/source/third_party/CMSIS/Include/cmsis_compiler.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/core_cm4.h: 
+C:/ti/simplelink_msp432_sdk_1_40_00_27/source/third_party/CMSIS/Include/cmsis_compiler.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/inc/system_msp432p401r.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/driverlib.h: 
 C:/ti/simplelink_msp432_sdk_1_40_00_27/source/ti/devices/msp432p4xx/driverlib/adc14.h: 

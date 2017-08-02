@@ -113,8 +113,8 @@ typedef enum MSP_EXP432P401R_GPIOName {
      * PWM examples.  Uncomment the following lines if you would like to control
      * the LEDs with the GPIO driver.
      */
-    //MSP_EXP432P401R_GPIO_LED_GREEN,
-    //MSP_EXP432P401R_GPIO_LED_BLUE,
+    MSP_EXP432P401R_GPIO_LED_GREEN,
+    MSP_EXP432P401R_GPIO_LED_BLUE,
 
     /*
      * MSP_EXP432P401R_SPI_CS1 is used to control chip select pin for slave1

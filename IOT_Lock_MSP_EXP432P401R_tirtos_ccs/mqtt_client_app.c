@@ -58,16 +58,6 @@
 #include <ti/devices/msp432p4xx/inc/msp432.h>
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 
-/* Hardware includes                                                          */
-//#include <ti/devices/msp432p4xx/inc/hw_types.h>
-//#include <ti/devices/cc32xx/inc/hw_ints.h>
-//#include <ti/devices/cc32xx/inc/hw_memmap.h>
-
-/* Driverlib includes                                                         */
-//#include <ti/devices/msp432p4xx/driverlib/rom.h>
-//#include <ti/devices/msp432p4xx/driverlib/rom_map.h>
-//#include <ti/devices/msp432p4xx/driverlib/timer.h>
-
 /* TI-Driver includes                                                         */
 #include <ti/drivers/GPIO.h>
 #include <ti/drivers/SPI.h>
@@ -642,6 +632,8 @@ void * MqttClient(void *pvParameters)
                                                           g_sTouchContext.y))
                         {
                             Graphics_drawSelectedImageButton(&g_sContext, &oneButton);
+                            Kitronix320x240x16_SSD2119DisableBacklight();
+                            Kitronix320x240x16_SSD2119DeepSleep();
                             enteredCode[keysPressed] = 1;
                         }
                         else if(Graphics_isImageButtonSelected(&twoButton,
@@ -714,6 +706,10 @@ void * MqttClient(void *pvParameters)
                     UART_PRINT("\n\rMSP432 Publishes the following message:\n\r");
                     UART_PRINT("Topic: %s\n\r", publish_topic_success);
                     UART_PRINT("Data: %s\n\n\r", publish_topic_success_data);
+
+                    GPIO_write(Board_LED0, Board_LED_OFF);
+                    GPIO_write(Board_LED1, Board_LED_ON);
+
                     //locked = false;
                     //drawLock();
                 }
@@ -725,6 +721,10 @@ void * MqttClient(void *pvParameters)
                     UART_PRINT("\n\rMSP432 Publishes the following message:\n\r");
                     UART_PRINT("Topic: %s\n\r", publish_topic_failure);
                     UART_PRINT("Data: %s\n\n\r", publish_topic_failure_data);
+
+                    GPIO_write(Board_LED0, Board_LED_ON);
+                    GPIO_write(Board_LED1, Board_LED_OFF);
+
                     //locked = true;
                     //drawLock();
                 }
@@ -800,7 +800,7 @@ int32_t Mqtt_IF_Connect()
         return -1;
     }
 
-    /* switch on Green LED to indicate Simplelink is properly up.             */
+    /* Toggle the Green LED to indicate Simplelink is properly up.             */
     GPIO_write(Board_LED2, Board_LED_ON);
 
     /* Start Timer to blink Red LED till AP connection                        */
@@ -1218,7 +1218,7 @@ void mainThread(void * args)
     drawKeypad();
 
     /* Seed the RNG                                                           */
-    srand(time(NULL));
+    srand(TLV->RANDOM_NUM_1);
 
     /* Configure the UART                                                     */
     tUartHndl = InitTerm();
@@ -1287,6 +1287,7 @@ void mainThread(void * args)
         }
         UART_PRINT(".\r\n");
 
+        GPIO_write(Board_LED0, Board_LED_ON);
         while (gResetApplication == false);
 
         UART_PRINT("TO Complete - Closing all threads and resources\r\n");
