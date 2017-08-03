@@ -116,8 +116,10 @@
 
 /* Defining Broker IP address and port Number                                 */
 //#define SERVER_ADDRESS           "messagesight.demos.ibm.com"
-#define SERVER_ADDRESS           "m2m.eclipse.org"
-#define SERVER_IP_ADDRESS        "192.168.178.67"
+//#define SERVER_ADDRESS           "m2m.eclipse.org"
+#define SERVER_ADDRESS           "test.mosquitto.org"
+//#define SERVER_IP_ADDRESS        "192.168.178.67"
+#define SERVER_IP_ADDRESS        "37.187.106.16"
 #define PORT_NUMBER              1883
 #define SECURED_PORT_NUMBER      8883
 #define LOOPBACK_PORT            1882
@@ -270,8 +272,8 @@ Graphics_ImageButton nineButton;
 /* Graphics library context                                                   */
 Graphics_Context g_sContext;
 
-/* Flag to know if a demo was run                                             */
-bool g_ranDemo = false;
+/* Flag to know if a reset was triggered                                      */
+bool reset = false;
 
 //*****************************************************************************
 //                 Banner VARIABLES
@@ -415,19 +417,12 @@ void pushButtonInterruptHandler2(uint_least8_t index)
 //*****************************************************************************
 void pushButtonInterruptHandler3(uint_least8_t index)
 {
-    struct msgQueue queueElement;
-    struct msgQueue queueElemRecv;
+    reset = true;
 
-    queueElement.event = DISC_PUSH_BUTTON_PRESSED;
-    queueElement.msgPtr = NULL;
+    GPIO_write(Board_LED0, Board_LED_ON);
+    P2OUT &= ~BIT1;
+    locked = true;
 
-    /* write message indicating disconnect push button pressed message       */
-    if (MQTT_SendMsgToQueue(&queueElement))
-    {
-        UART_PRINT("\n\n\rQueue is full, throw first msg and send the new one\n\n\r");
-        mq_receive(g_PBQueue, (char*) &queueElemRecv, sizeof(struct msgQueue), NULL);
-        MQTT_SendMsgToQueue(&queueElement);
-    }
 }
 
 //*****************************************************************************
@@ -620,8 +615,8 @@ void * MqttClient(void *pvParameters)
                 GPIO_enableInt(Board_BUTTON0); // SW2
 
                 keysPressed = 0;
-                drawKeypad();
-                //Delay(10);
+                //drawKeypad();
+
                 while (keysPressed < PASSCODE_LEN) {
                     touch_updateCurrentTouch(&g_sTouchContext);
 
@@ -632,8 +627,6 @@ void * MqttClient(void *pvParameters)
                                                           g_sTouchContext.y))
                         {
                             Graphics_drawSelectedImageButton(&g_sContext, &oneButton);
-                            Kitronix320x240x16_SSD2119DisableBacklight();
-                            Kitronix320x240x16_SSD2119DeepSleep();
                             enteredCode[keysPressed] = 1;
                         }
                         else if(Graphics_isImageButtonSelected(&twoButton,
@@ -675,7 +668,7 @@ void * MqttClient(void *pvParameters)
                                                                g_sTouchContext.x,
                                                                g_sTouchContext.y))
                         {
-                            // Button seven is broken for some reason...
+                            // Button seven is broken
                             //Graphics_drawSelectedImageButton(&g_sContext,&sevenButton);
                             keysPressed--;
                         }
@@ -708,9 +701,9 @@ void * MqttClient(void *pvParameters)
                     UART_PRINT("Data: %s\n\n\r", publish_topic_success_data);
 
                     GPIO_write(Board_LED0, Board_LED_OFF);
-                    GPIO_write(Board_LED1, Board_LED_ON);
+                    P2OUT |= BIT1;
 
-                    //locked = false;
+                    locked = false;
                     //drawLock();
                 }
                 else {
@@ -723,9 +716,9 @@ void * MqttClient(void *pvParameters)
                     UART_PRINT("Data: %s\n\n\r", publish_topic_failure_data);
 
                     GPIO_write(Board_LED0, Board_LED_ON);
-                    GPIO_write(Board_LED1, Board_LED_OFF);
+                    P2OUT &= ~BIT1;
 
-                    //locked = true;
+                    locked = true;
                     //drawLock();
                 }
 
@@ -787,7 +780,7 @@ int32_t Mqtt_IF_Connect()
 
     GPIO_write(Board_LED0, Board_LED_OFF);
     GPIO_write(Board_LED1, Board_LED_OFF);
-    GPIO_write(Board_LED2, Board_LED_OFF);
+    P2OUT &= ~BIT1;
 
     /* Reset The state of the machine                                         */
     Network_IF_ResetMCUStateMachine();
@@ -829,7 +822,7 @@ int32_t Mqtt_IF_Connect()
 
     GPIO_write(Board_LED0, Board_LED_OFF);
     GPIO_write(Board_LED1, Board_LED_OFF);
-    GPIO_write(Board_LED2, Board_LED_OFF);
+    P2OUT &= ~BIT1;
 
     return 0;
 }
@@ -1214,8 +1207,9 @@ void mainThread(void * args)
 
     /* Calibrate the LCD and draw the keypad                                 */
     touch_initInterface();
-    //locked = true;
+    locked = true;
     drawKeypad();
+    //drawLock();
 
     /* Seed the RNG                                                           */
     srand(TLV->RANDOM_NUM_1);
@@ -1288,7 +1282,19 @@ void mainThread(void * args)
         UART_PRINT(".\r\n");
 
         GPIO_write(Board_LED0, Board_LED_ON);
-        while (gResetApplication == false);
+        while (gResetApplication == false) {
+            if (reset) {
+                reset = false;
+
+                MQTTClient_publish(gMqttClient, (char*) publish_topic_failure, strlen((char*)publish_topic_failure),
+                                             (char*)publish_topic_failure_data, strlen((char*) publish_topic_failure_data),
+                                             MQTT_QOS_2 | ((RETAIN_ENABLE)?MQTT_PUBLISH_RETAIN:0) );
+
+                UART_PRINT("\n\rMSP432 Publishes the following message:\n\r");
+                UART_PRINT("Topic: %s\n\r", publish_topic_failure);
+                UART_PRINT("Data: %s\n\n\r", publish_topic_failure_data);
+            }
+        }
 
         UART_PRINT("TO Complete - Closing all threads and resources\r\n");
 
