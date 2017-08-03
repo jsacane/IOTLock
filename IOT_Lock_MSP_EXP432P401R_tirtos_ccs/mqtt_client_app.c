@@ -1189,12 +1189,11 @@ void mainThread(void * args)
     Board_initGPIO();
     Board_initSPI();
 
-    /* Initialize the demo. */
-    boardInit();
-    //clockInit();
+    /* Initialize the demo */
+    FPU_enableModule();
     initializeKeypadButtons();
 
-    /* Globally enable interrupts. */
+    /* Globally enable interrupts */
     __enable_interrupt();
 
     // LCD setup using Graphics Library API calls
@@ -1454,36 +1453,6 @@ void drawKeypad(void)
     Graphics_drawImageButton(&g_sContext, &sevenButton);
     Graphics_drawImageButton(&g_sContext, &eightButton);
     Graphics_drawImageButton(&g_sContext, &nineButton);
-}
-
-void boardInit()
-{
-    FPU_enableModule();
-}
-
-void clockInit(void)
-{
-    /* 2 flash wait states, VCORE = 1, running off DC-DC, 48 MHz */
-    FlashCtl_setWaitState(FLASH_BANK0, 2);
-    FlashCtl_setWaitState(FLASH_BANK1, 2);
-    PCM_setPowerState(PCM_AM_DCDC_VCORE1);
-    CS_setDCOCenteredFrequency(CS_DCO_FREQUENCY_48);
-    CS_setDCOFrequency(48000000);
-    CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, 1);
-    CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, 1);
-    CS_initClockSignal(CS_HSMCLK, CS_DCOCLK_SELECT, 1);
-
-    return;
-}
-
-void Delay(uint16_t msec){
-    uint32_t i = 0;
-    uint32_t time = (msec / 1000) * (SYSTEM_CLOCK_SPEED / 15);
-
-    for(i = 0; i < time; i++)
-    {
-        ;
-    }
 }
 
 //*****************************************************************************

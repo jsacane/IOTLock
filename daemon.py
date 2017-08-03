@@ -1,13 +1,8 @@
 import gspread
 import paho.mqtt.client as mqtt
 from twilio.rest import Client
-from flask import Flask, render_template
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
-
-# Create Flask app to serve IOTLock status page
-app = Flask(__name__)
-isLocked = True
 
 # Create a client to interact with the Twilio REST API
 account_sid = "AC4e84a781b6ba01e8a0e8e7ab728c9339"
@@ -52,20 +47,10 @@ def on_message(client, userdata, msg):
         log = datetime.now().strftime("%Y-%m-%d %H:%M:%S").split()
         if msg.topic == "IOTLock/Success":
             log.append("SUCCESS")
-            isLocked = False
         elif msg.topic == "IOTLock/Failure":
             log.append("FAILURE")
-            isLocked = True
         sheet.insert_row(log, row)
         row += 1
-
-@app.route('/')
-def show_lock():
-    global isLocked
-    if (isLocked):
-        return render_template('locked.html')
-    else:
-        return render_template('unlocked.html')
         
 if __name__ == '__main__':
     # Create a client to interact with the MQTT broker
@@ -73,11 +58,10 @@ if __name__ == '__main__':
     mqtt_client.on_connect = on_connect
     mqtt_client.on_message = on_message
 
-    mqtt_client.connect("m2m.eclipse.org", 1883, 60)
+    mqtt_client.connect("test.mosquitto.org", 1883, 60)
 
     # Blocking call that processes network traffic, dispatches callbacks and
     # handles reconnecting.
     # Other loop*() functions are available that give a threaded interface and a
     # manual interface.
-    mqtt_client.loop_start()
-    app.run()
+    mqtt_client.loop_forever()
