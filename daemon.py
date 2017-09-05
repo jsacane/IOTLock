@@ -5,8 +5,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 # Create a client to interact with the Twilio REST API
-account_sid = "AC4e84a781b6ba01e8a0e8e7ab728c9339"
-auth_token  = "c55ddd26fb0987332340619710480544"
+account_sid = "Your Twilio SID here"
+auth_token  = "Your Twilio auth token here"
 twilio_client = Client(account_sid, auth_token)
 
 # Create a client to interact with the Google Drive API
@@ -38,8 +38,8 @@ def on_message(client, userdata, msg):
     if msg.topic == "IOTLock/SendCode":
         print(msg.topic + ": " + str(msg.payload))
         message = twilio_client.messages.create(
-            to="+12032462176",
-            from_="+16319941036",
+            to="your phone number here",
+            from_="your Twilio number here",
             body=str(msg.payload))
         print("Message SID: " + message.sid + "\n")
     else:
